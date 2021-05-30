@@ -8,7 +8,8 @@ const init = async () => {
     // eslint-disable-next-line max-len
     // host: process.env.NODE_ENV !== 'production' ? 'localhost' : '34.101.5.116',
     port: process.env.PORT || 8080,
-    host: 'bangkit-capstone-313209.et.r.appspot.com',
+    host: 'localhost',
+    // host: 'bangkit-capstone-313209.et.r.appspot.com',
     routes: {
       cors: {
         origin: ['*'],
