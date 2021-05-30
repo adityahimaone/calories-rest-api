@@ -2,6 +2,7 @@
 /* eslint linebreak-style: ["error", "windows"]*/
 const {nanoid} = require('nanoid');
 const cal = require('./cal');
+const foods = require('./food');
 
 const addCalHandler = (request, h) => {
   const {gender,
@@ -75,5 +76,81 @@ const addCalHandler = (request, h) => {
   return response;
 };
 
-module.exports = {addCalHandler};
+const getFoodData = () => ({
+  foods: foods.map((food) => ({
+    id: food.id,
+    name: food.name,
+    dose: food.dose,
+    calorie: food.calorie,
+  })),
+});
+
+const getFoodDataByName = (request, h) => {
+  const {name} = request.params;
+  const food = foods.filter((n) => n.name === name)[0];
+
+  if (food !== undefined) {
+    return {
+      // status: 'success',
+      food: food.name,
+      calorie: food.calorie,
+    };
+  }
+  const response = h.response({
+    status: 'fail',
+    message: 'makanan tidak ditemukan',
+  });
+  response.code(404);
+  return response;
+};
+
+const getFood = (request, h) => {
+  const name = request.params.name.split(',');
+  const foodRes = [];
+  const foodL = [];
+  const foodContainer = [];
+  for (let i = 0; i < name.length; i++ ) {
+    foodL[i] = name[i];
+    foodRes[i] = foods.filter((n) => n.name === foodL[i])[0];
+    foodContainer.push(foodRes[i]);
+    console.log(foodL[i]);
+    console.log(foodRes[i]);
+    console.log(foodContainer);
+  }
+  /* const food1 = name[0];
+  const food2 = name[1];
+  const food3 = name[2];
+  const foodRes1 = foods.filter((n) => n.name === food1)[0];
+  const foodRes2 = foods.filter((n) => n.name === food2)[0];
+  const foodRes3 = foods.filter((n) => n.name === food3)[0]; */
+  /* console.log(foodRes1);
+  console.log(foodRes2);
+  console.log(foodRes3); */
+
+  /* const foodContainer = [];
+  const newFood = {
+    foodRes1,
+    foodRes2,
+    foodRes3,
+  };
+  foodContainer.push(newFood); */
+  // for (item of name) {
+  // console.log(...name);
+  // return (food);
+  // }
+  if (foodRes !== undefined) {
+    return {
+      // status: 'success',
+      foodContainer,
+    };
+  }
+  const response = h.response({
+    status: 'fail',
+    message: 'makanan tidak ditemukan',
+  });
+  response.code(404);
+  return response;
+};
+
+module.exports = {addCalHandler, getFoodData, getFoodDataByName, getFood};
 

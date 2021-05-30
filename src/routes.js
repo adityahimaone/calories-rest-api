@@ -1,6 +1,9 @@
 /* eslint linebreak-style: ["error", "windows"]*/
 
-const {addCalHandler} = require('./handler');
+const {addCalHandler,
+  getFoodData,
+  getFoodDataByName,
+  getFood} = require('./handler');
 
 
 const routes = [
@@ -8,6 +11,21 @@ const routes = [
     method: 'POST',
     path: '/calorie',
     handler: addCalHandler,
+  },
+  {
+    method: 'GET',
+    path: '/data',
+    handler: getFoodData,
+  },
+  {
+    method: 'GET',
+    path: '/data/{name}',
+    handler: getFoodDataByName,
+  },
+  {
+    method: 'GET',
+    path: '/datas/{name*}',
+    handler: getFood,
   },
 ];
 
