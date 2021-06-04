@@ -2,10 +2,6 @@
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 // const admin = require('firebase-admin');
-const debug = require('debug')('firestore-snippets-node');
-
-const console = {log: debug};
-console.log(console);
 
 const init = async () => {
   const server = Hapi.server({
